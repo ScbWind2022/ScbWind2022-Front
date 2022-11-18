@@ -10,7 +10,11 @@
     "lint:styles": "stylelint './**/*.{js,ts,tsx}'"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@fontsource/roboto": "^4.5.8",
+    "@mui/material": "^5.10.14",
+    "@mui/styled-engine-sc": "^5.10.14",
     "lodash": "^4.17.21",
     "next": "13.0.3",
     "normalize.css": "^8.0.1",
