@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
+import axios from 'axios'
 import { useRouter } from 'next/router'
 import { Field, Form } from 'react-final-form'
 import styled from 'styled-components'
@@ -10,7 +11,29 @@ export default function Register() {
   const router = useRouter()
 
   function onSubmit(e) {
-    router.push('/login')
+    register()
+  }
+
+  function register() {
+    axios({
+      method: 'post',
+      url: `http://localhost:8083/api/v1/user/register`,
+      data: {
+        email: 'email24',
+        password: 'password',
+        firstName: 'firstName'
+      }
+    })
+      .then((res) => {
+        const { data } = res
+        console.log(data)
+        if (data === 'User register') {
+          router.push('/login')
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   function validate(e) {
@@ -21,22 +44,24 @@ export default function Register() {
     if (!isValidEmail && email) {
       errors.email = 'Введите корректный адрес электронной почты'
     }
-    if (password !== repeatPassword && repeatPassword?.length !== 0) {
+
+    if (password !== repeatPassword && repeatPassword && repeatPassword?.length !== 0) {
+      errors.password = 'Пароли не совпадают'
       errors.repeatPassword = 'Пароли не совпадают'
     }
 
-    if (phone && phone.length !== 11) {
+    if (!phone && phone?.length !== 11) {
       errors.phone = 'Неправильно набран телефон'
     }
 
-    if (firstname) {
+    if (!firstname) {
       errors.firstname = 'Это обязательное поле'
     }
-    if (surname) {
-      errors.firstname = 'Это обязательное поле'
+    if (!surname) {
+      errors.surname = 'Это обязательное поле'
     }
-    if (patronomyc) {
-      errors.firstname = 'Это обязательное поле'
+    if (!patronomyc) {
+      errors.patronomyc = 'Это обязательное поле'
     }
 
     return errors
@@ -59,7 +84,7 @@ export default function Register() {
                       variant="outlined"
                       placeholder="Почта"
                       error={props.meta.error && props.meta.touched}
-                      helperText={props.meta.error}
+                      helperText={props.meta.touched ? props.meta.error : ''}
                     />
                   )
                 }}
@@ -74,7 +99,7 @@ export default function Register() {
                       variant="outlined"
                       placeholder="Пароль"
                       error={props.meta.error && props.meta.touched}
-                      helperText={props.meta.error}
+                      helperText={props.meta.touched ? props.meta.error : ''}
                     />
                   )
                 }}
@@ -104,7 +129,7 @@ export default function Register() {
                       variant="outlined"
                       placeholder="Номер телефона"
                       error={props.meta.error && props.meta.touched}
-                      helperText={props.meta.error}
+                      helperText={props.meta.touched ? props.meta.error : ''}
                     />
                   )
                 }}
@@ -118,7 +143,7 @@ export default function Register() {
                       variant="outlined"
                       placeholder="Имя"
                       error={props.meta.error && props.meta.touched}
-                      helperText={props.meta.error}
+                      helperText={props.meta.touched ? props.meta.error : ''}
                     />
                   )
                 }}
@@ -132,7 +157,7 @@ export default function Register() {
                       variant="outlined"
                       placeholder="Фамилия"
                       error={props.meta.error && props.meta.touched}
-                      helperText={props.meta.error}
+                      helperText={props.meta.touched ? props.meta.error : ''}
                     />
                   )
                 }}
@@ -146,7 +171,7 @@ export default function Register() {
                       variant="outlined"
                       placeholder="Отчество"
                       error={props.meta.error && props.meta.touched}
-                      helperText={props.meta.error}
+                      helperText={props.meta.touched ? props.meta.error : ''}
                     />
                   )
                 }}
@@ -183,11 +208,12 @@ const LoginView = styled.div`
 
 const LoginField = styled(TextField)`
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   height: 80px;
 `
 
 const LoginButton = styled(Button)`
   width: 100%;
+  margin-bottom: 20px;
   height: 60px;
 `
