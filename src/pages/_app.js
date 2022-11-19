@@ -8,6 +8,8 @@ import { SystemModalContextProvider } from '../Modals/SystemModal/SystemModalCon
 import { store } from '../state/store'
 import '../styles/globals.css'
 import 'react-toastify/dist/ReactToastify.css'
+import { RootThemeProvider } from '../styles/index'
+
 import 'normalize.css'
 
 Router.events.on('routeChangeStart', () => NProgress.start())
@@ -17,12 +19,11 @@ Router.events.on('routeChangeError', () => NProgress.done())
 function App({ Component, pageProps }) {
   return (
     <Provider store={store}>
-      <RouteGuard>
-        <SystemModalContextProvider>
+      <RootThemeProvider>
+        <RouteGuard>
           <Component {...pageProps} />
-        </SystemModalContextProvider>
-      </RouteGuard>
-      <ToastContainer />
+        </RouteGuard>
+      </RootThemeProvider>
     </Provider>
   )
 }
