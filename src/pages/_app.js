@@ -3,6 +3,7 @@ import NProgress from 'nprogress'
 import { Provider } from 'react-redux'
 
 import RouteGuard from '../components/RouteGuard'
+import { SystemModalContextProvider } from '../Modals/SystemModal/SystemModalContext'
 import { store } from '../state/store'
 
 import 'normalize.css'
@@ -15,7 +16,9 @@ function App({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <RouteGuard>
-        <Component {...pageProps} />
+        <SystemModalContextProvider>
+          <Component {...pageProps} />
+        </SystemModalContextProvider>
       </RouteGuard>
     </Provider>
   )

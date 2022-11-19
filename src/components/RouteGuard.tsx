@@ -24,7 +24,6 @@ export default function RouteGuard({ children }) {
   }, [])
 
   function authCheck(url) {
-    setAuthorized(true)
     const publicPaths = ['/login', '/register']
     const path = url.split('?')[0]
     const userIsAuthorized = Cookies.get(AUTH_COOKIE)
