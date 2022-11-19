@@ -1,11 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  user: {
-    role: null,
-    isAuthorized: false,
-    username: ''
-  }
+  role: null,
+  isAuthorized: false,
+  username: ''
 }
 
 const { actions, reducer } = createSlice({
