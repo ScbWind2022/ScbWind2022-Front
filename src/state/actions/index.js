@@ -1,5 +1,11 @@
 import AuthReducer from './auth'
 import * as auth from './auth'
+import UserReducer from './user'
+import * as user from './user'
 
-export { auth }
-export default AuthReducer
+const repositiories = {}
+repositiories.auth = AuthReducer
+repositiories.user = UserReducer
+
+export { auth, user }
+export default repositiories
