@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext } from 'react'
 
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
@@ -7,10 +7,14 @@ import { useRouter } from 'next/router'
 import { Field, Form } from 'react-final-form'
 import styled from 'styled-components'
 
+import SystemModalContext from '../Modals/SystemModal/SystemModalContext'
+
 export default function Register() {
+  const { systemModals, setSystemModals } = useContext(SystemModalContext)
+
   const router = useRouter()
 
-  function onSubmit(e) {
+  function onSubmit() {
     register()
   }
 
@@ -19,20 +23,20 @@ export default function Register() {
       method: 'post',
       url: `http://localhost:8083/api/v1/user/register`,
       data: {
-        email: 'email24',
+        email: 'email5',
         password: 'password',
         firstName: 'firstName'
       }
     })
       .then((res) => {
         const { data } = res
-        console.log(data)
+
         if (data === 'User register') {
           router.push('/login')
         }
       })
       .catch((err) => {
-        console.log(err)
+        setSystemModals([...systemModals, { id: systemModals.length, title: 'Ошибка!', description: err.message }])
       })
   }
 
