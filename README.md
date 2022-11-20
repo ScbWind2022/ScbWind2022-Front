@@ -17,6 +17,9 @@
 2. React-redux
 3. Axios
 4. Styled-components
+5. React-final-form для обработки форм (регистрации/авторизации/редактирования профиля пользователя)
+6. Сhart для отображения графиков
+7. Material
 
 Идея решения
 1. Frontend взаимодействует с backend по REST API.
