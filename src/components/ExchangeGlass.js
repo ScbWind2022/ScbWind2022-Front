@@ -18,11 +18,11 @@ export default function ExchangeGlass() {
     createData(9.0, 37, 4.3),
     createData(16.0, 24, 6.0),
     createData(3.7, 67, 4.3),
-    createData(16.0, 49, 3.9)
+    createData(12.0, 49, 3.9)
   ]
 
   return (
-    <View component={Paper}>
+    <View>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -32,8 +32,8 @@ export default function ExchangeGlass() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+          {rows.map((row, index) => (
+            <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell align="center">{row.name}</TableCell>
               <TableCell align="center">{row.calories}</TableCell>
               <TableCell align="center">{row.fat}</TableCell>
@@ -45,11 +45,13 @@ export default function ExchangeGlass() {
   )
 }
 
-const View = styled(TableContainer)`
-  width: 300px;
+const View = styled.div`
+  background: #fff;
+  width: 100%;
   border: 1px solid #1976d2;
 
   & th {
+    padding: 5px;
     width: 33%;
     border-right: 1px solid #1976d2;
 
@@ -57,7 +59,15 @@ const View = styled(TableContainer)`
       border-right: none;
     }
   }
+  & tr {
+    border-bottom: 2px solid #1976d2;
+
+    :last-child {
+      border-bottom: none !important;
+    }
+  }
   & tr td {
+    padding: 5px;
     width: 33%;
     border-right: 1px solid #1976d2 !important;
 
